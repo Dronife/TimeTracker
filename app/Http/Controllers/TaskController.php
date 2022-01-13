@@ -3,13 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskRequest;
+use App\Http\Services\TaskService;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->taskService = new TaskService();
+    }
 
     /**
      * Display a listing of the resource.
@@ -40,8 +46,8 @@ class TaskController extends Controller
      */
     public function store(TaskRequest $request)
     {
-        Auth::user()->tasks()->create($request->validated());
-        return redirect()->route('tasks.index')->with('successMsg','Item was created successfully');
+        return $this->taskService->store($request->validated());
+        
     }
 
     /**

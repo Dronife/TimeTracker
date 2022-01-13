@@ -22,6 +22,7 @@
                     <td>{{$task->date}}</td>
                     <td>{{$task->time_spent}}</td>
                     <td>
+                     
                         <a class="fa fa-trash text-danger"></a>
                         <a class="fa fa-pen text-dark"></a>
                     </td>
