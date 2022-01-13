@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +17,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $tasks = Auth::user()->tasks;
+        return view('task.index', ['tasks' => $tasks]);
     }
 
     /**
