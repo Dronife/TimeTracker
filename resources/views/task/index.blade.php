@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-    <button class="btn btn-primary">Create new</button>
+       @include('layouts.successMessage')
+    <a href="/tasks/create" class="btn btn-primary">Create new</a>
     <div class="mt-5">
         <table class="table">
             <thead>
