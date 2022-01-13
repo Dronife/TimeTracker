@@ -2,7 +2,6 @@
 
 namespace App\Http\Services;
 
-use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -15,19 +14,27 @@ class TaskService
         try {
             Auth::user()->tasks()->create($attributes);
             DB::commit();
-        } catch (\Throwable $e) {
+        } catch (\Throwable$e) {
             DB::rollBack();
             return false;
         }
         return true;
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
+        $user = Auth::user();
+
         DB::beginTransaction();
         try {
-            Auth::user()->tasks()->find($id)->delete();
+            $task = $user->tasks()->find($id);
+            if($task->user_id != $user->id){
+                DB::rollBack();
+                return false;
+            }
+            $task->delete();
             DB::commit();
-        } catch (\Throwable $e) {
+        } catch (\Throwable$e) {
             DB::rollBack();
             return false;
         }

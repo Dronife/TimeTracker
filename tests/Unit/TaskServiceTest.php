@@ -63,10 +63,52 @@ class TaskServiceTest extends TestCase
                 'comment' => 'comment',
                 'date' => Carbon::now(),
                 'time_spent' => 120,
-                'user_id' => 2000,
           ];
         $this->taskService->store($taskArray);
         $this->assertEquals($this->user->id, Task::first()->user_id);
+    }
+    public function test_delete_task()
+    {
+        $this->actingAs($this->user);
+          $taskArray =  [
+                'title' => 'task1',
+                'comment' => 'comment',
+                'date' => Carbon::now(),
+                'time_spent' => 120,
+          ];
+        $this->taskService->store($taskArray);
+        $response = $this->taskService->destroy(1);
+        $this->assertTrue($response);
+    }
+
+    public function test_fails_to_delete_when_does_not_exist()
+    {
+        $this->actingAs($this->user);
+          $taskArray =  [
+                'title' => 'task1',
+                'comment' => 'comment',
+                'date' => Carbon::now(),
+                'time_spent' => 120,
+          ];
+        $this->taskService->store($taskArray);
+        $response = $this->taskService->destroy(2);
+        $this->assertFalse($response);
+    }
+
+    public function test_fails_when_other_user_tries_to_delete_task()
+    {
+        $this->actingAs($this->user);
+          $taskArray =  [
+                'title' => 'task1',
+                'comment' => 'comment',
+                'date' => Carbon::now(),
+                'time_spent' => 120,
+          ];
+        $this->taskService->store($taskArray);
+        $user = User::factory()->create();
+        $this->actingAs($user);
+        $response = $this->taskService->destroy(1);
+        $this->assertFalse($response);
     }
 
 }
