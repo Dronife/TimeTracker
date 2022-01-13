@@ -94,6 +94,9 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if($this->taskService->destroy($id))
+            return redirect()->route('tasks.index')->with('successMsg', 'Item was deleted successfully');
+        return redirect()->route('tasks.index')->withErrors(['msg' => "Something went wrong"]);
+
     }
 }

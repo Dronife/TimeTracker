@@ -2,6 +2,7 @@
 @section('content')
 <div class="container">
        @include('layouts.successMessage')
+       @include('layouts.errorMessage')
     <a href="/tasks/create" class="btn btn-primary">Create new</a>
     <div class="mt-5">
         <table class="table">
@@ -22,8 +23,9 @@
                     <td>{{$task->date}}</td>
                     <td>{{$task->time_spent}}</td>
                     <td>
-                     
-                        <a class="fa fa-trash text-danger"></a>
+                        {{-- <a class="text-danger" onclick="return confirm('Are you sure you want to delete?')" href="{{route('tasks.destroy', $task)}}"><i class="fa fa-trash"></i></a> --}}
+                        {{-- <a class="fa fa-trash text-danger"></a> --}}
+                        @include('layouts.deleteButton',['action' => route('tasks.destroy', $task)])
                         <a class="fa fa-pen text-dark"></a>
                     </td>
                 </tr>

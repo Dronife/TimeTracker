@@ -22,4 +22,16 @@ class TaskService
         return true;
     }
 
+    public function destroy($id){
+        DB::beginTransaction();
+        try {
+            Auth::user()->tasks()->find($id)->delete();
+            DB::commit();
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return false;
+        }
+        return true;
+    }
+
 }

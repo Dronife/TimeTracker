@@ -2,15 +2,7 @@
 @section('content')
 
     <div class="container w-50">
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        @include('layouts.errorMessage')
         <form action="/tasks" method="post">
             @csrf
             <div class="form-group">
