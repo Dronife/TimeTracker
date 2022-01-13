@@ -42,8 +42,28 @@ class TaskService
         return true;
     }
 
-    public function edit(Task $task){
-        return $task->user_id == Auth::user()->id;
+    public function edit($task_user_id){
+        return $task_user_id == Auth::user()->id;
+    }
+
+    public function update($attributes, $id){
+
+        $user = Auth::user();
+
+        DB::beginTransaction();
+        try {
+            $task = $user->tasks()->find($id);
+            if($task->user_id != $user->id){
+                DB::rollBack();
+                return false;
+            }
+            $task->update($attributes);
+            DB::commit();
+        } catch (\Throwable$e) {
+            DB::rollBack();
+            return false;
+        }
+        return true;
     }
 
 }

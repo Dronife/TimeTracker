@@ -72,7 +72,7 @@ class TaskController extends Controller
     public function edit(Task $task)
     {
         
-        if($this->taskService->edit($task))
+        if($this->taskService->edit($task->user_id))
             return view('task.edit', ['task' => $task]);
         return redirect()->route('tasks.index')->withErrors(['msg' => "Do not have rights to edit"]);
     }
@@ -84,9 +84,11 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TaskRequest $request, $id)
     {
-        //
+        if($this->taskService->update($request->validated(),$id))
+            return redirect()->route('tasks.index')->with('successMsg', 'Item was updated successfully');
+        return redirect()->back()->withErrors(['msg' => "Something went wrong"]);
     }
 
     /**

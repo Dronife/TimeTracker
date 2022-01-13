@@ -123,7 +123,7 @@ class TaskServiceTest extends TestCase
         $this->taskService->store($taskArray);
         $user = User::factory()->create();
         $this->actingAs($user);
-        $response = $this->taskService->edit(Task::find(1));
+        $response = $this->taskService->edit(1);
         $this->assertFalse($response);
     }
 
@@ -137,8 +137,71 @@ class TaskServiceTest extends TestCase
                 'time_spent' => 120,
           ];
         $this->taskService->store($taskArray);
-        $response = $this->taskService->edit(Task::find(1));
+        $response = $this->taskService->edit(1);
         $this->assertTrue($response);
+    }
+
+    public function test_owner_successfully_updated_task()
+    {
+        $this->actingAs($this->user);
+          $taskArray =  [
+                'title' => 'task1',
+                'comment' => 'comment',
+                'date' => Carbon::now(),
+                'time_spent' => 120,
+          ];
+        $this->taskService->store($taskArray);
+
+        $expectedTitle = "testSuccess";
+        $updateTaskArray =  [
+            'title' => $expectedTitle,
+            'comment' => 'comment',
+            'date' => Carbon::now(),
+            'time_spent' => 120,
+         ];
+
+        $this->taskService->update($updateTaskArray,1);
+        $this->assertEquals($expectedTitle,Task::find(1)->title);
+    }
+    public function test_owner_can_update_task()
+    {
+        $this->actingAs($this->user);
+          $taskArray =  [
+                'title' => 'task1',
+                'comment' => 'comment',
+                'date' => Carbon::now(),
+                'time_spent' => 120,
+          ];
+        $this->taskService->store($taskArray);
+        $updateTaskArray =  [
+            'title' => 'task112',
+            'comment' => 'comment',
+            'date' => Carbon::now(),
+            'time_spent' => 120,
+         ];
+        $response = $this->taskService->update($updateTaskArray,1);
+        $this->assertTrue($response);
+    }
+    public function test_other_user_cannot_update_task()
+    {
+        $this->actingAs($this->user);
+          $taskArray =  [
+                'title' => 'task1',
+                'comment' => 'comment',
+                'date' => Carbon::now(),
+                'time_spent' => 120,
+          ];
+        $this->taskService->store($taskArray);
+        $updateTaskArray =  [
+            'title' => 'task112',
+            'comment' => 'comment',
+            'date' => Carbon::now(),
+            'time_spent' => 120,
+         ];
+        $user = User::factory()->create();
+        $this->actingAs($user);
+        $response = $this->taskService->update($updateTaskArray,1);
+        $this->assertFalse($response);
     }
 
 }
