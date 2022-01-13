@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 
+use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -39,6 +40,10 @@ class TaskService
             return false;
         }
         return true;
+    }
+
+    public function edit(Task $task){
+        return $task->user_id == Auth::user()->id;
     }
 
 }

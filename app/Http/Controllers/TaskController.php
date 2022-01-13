@@ -66,12 +66,15 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * 
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Task $task)
     {
-        //
+        
+        if($this->taskService->edit($task))
+            return view('task.edit', ['task' => $task]);
+        return redirect()->route('tasks.index')->withErrors(['msg' => "Do not have rights to edit"]);
     }
 
     /**

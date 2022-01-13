@@ -26,7 +26,7 @@
                         {{-- <a class="text-danger" onclick="return confirm('Are you sure you want to delete?')" href="{{route('tasks.destroy', $task)}}"><i class="fa fa-trash"></i></a> --}}
                         {{-- <a class="fa fa-trash text-danger"></a> --}}
                         @include('layouts.deleteButton',['action' => route('tasks.destroy', $task)])
-                        <a class="fa fa-pen text-dark"></a>
+                        <a href="{{route('tasks.edit', $task)}}" class="fa fa-pen text-dark"></a>
                     </td>
                 </tr>
                 @endforeach

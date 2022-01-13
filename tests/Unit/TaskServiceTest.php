@@ -111,4 +111,34 @@ class TaskServiceTest extends TestCase
         $this->assertFalse($response);
     }
 
+    public function test_fails_when_other_user_tries_to_edit_task()
+    {
+        $this->actingAs($this->user);
+          $taskArray =  [
+                'title' => 'task1',
+                'comment' => 'comment',
+                'date' => Carbon::now(),
+                'time_spent' => 120,
+          ];
+        $this->taskService->store($taskArray);
+        $user = User::factory()->create();
+        $this->actingAs($user);
+        $response = $this->taskService->edit(Task::find(1));
+        $this->assertFalse($response);
+    }
+
+    public function test_owner_can_edit_task()
+    {
+        $this->actingAs($this->user);
+          $taskArray =  [
+                'title' => 'task1',
+                'comment' => 'comment',
+                'date' => Carbon::now(),
+                'time_spent' => 120,
+          ];
+        $this->taskService->store($taskArray);
+        $response = $this->taskService->edit(Task::find(1));
+        $this->assertTrue($response);
+    }
+
 }
