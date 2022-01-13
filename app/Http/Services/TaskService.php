@@ -17,9 +17,9 @@ class TaskService
             DB::commit();
         } catch (\Throwable $e) {
             DB::rollBack();
-            return redirect()->back()->withErrors(['msg' => "Something went wrong"]);;
+            return false;
         }
-        return redirect()->route('tasks.index')->with('successMsg', 'Item was created successfully');
+        return true;
     }
 
 }

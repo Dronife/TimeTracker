@@ -46,7 +46,9 @@ class TaskController extends Controller
      */
     public function store(TaskRequest $request)
     {
-        return $this->taskService->store($request->validated());
+        if($this->taskService->store($request->validated()))
+            return redirect()->route('tasks.index')->with('successMsg', 'Item was created successfully');
+        return redirect()->back()->withErrors(['msg' => "Something went wrong"]);
         
     }
 
