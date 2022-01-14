@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Services\Export;
+namespace App\Http\Factories\Export;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
-class PdfExportation implements ExportationStrategy
+class PdfExporter extends Exporter
 {
-    public function export($tasks)
-    {
+    public function exportFile(){
+        dd($this->totalTime);
         $options = new Options();
         $options->set('defaultFont', 'Arial');
         $dompdf = new Dompdf($options);
-        $htmlData = view('exportation.pdfIndex', ['tasks' => $tasks, 'timeSpent' => 123]);
+        $htmlData = view('exportation.pdfIndex', ['tasks' => $this->tasks, 'timeSpent' => $this->totalTime]);
         $dompdf->loadHtml($htmlData, 'UTF-8');
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
