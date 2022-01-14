@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +11,12 @@ class Task extends Model
     use HasFactory;
 
     protected $fillable = ['title', 'comment', 'date', 'time_spent', 'user_id'];
+
+  
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d');
+    }
 
     public function user(){
         return $this->belongsTo(User::class);
