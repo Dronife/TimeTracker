@@ -17,10 +17,7 @@ class XlsExporter extends Exporter
         );;
         $writer = new Xls($spreadsheet);
         $writer->save($filename);
-        header('Content-type: text/xls');
-        header('Content-disposition:attachment; filename="'.$filename.'"'); 
-        readfile($filename);
-        unlink($filename);
+        return response()->download($filename)->deleteFileAfterSend(true);
     }
 
     private function mergeArray(){

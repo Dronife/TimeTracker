@@ -14,10 +14,7 @@ class CsvExporter extends Exporter
         }
         fputcsv($fp, $this->composeSpaceForTotalTimeSpent());
         fclose($fp);
-        header('Content-type: text/csv');
-        header('Content-disposition:attachment; filename="' . $filename . '"');
-        readfile($filename);
-        unlink($filename);
+        return response()->download($filename)->deleteFileAfterSend(true);
     }
 
    

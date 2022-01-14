@@ -15,6 +15,8 @@ class PdfExporter extends Exporter
         $dompdf->loadHtml($htmlData, 'UTF-8');
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
-        $dompdf->stream($this->fileName.".pdf");
+        return response()->download($dompdf->stream($this->fileName.".pdf"))->deleteFileAfterSend(true);
+        // ;
+        // $dompdf->stream($this->fileName.".pdf");
     }
 }
