@@ -16,8 +16,7 @@
 
 </style>
 <div style=" width: 90%; margin-left: auto;margin-right: auto;">
-    <h3 style="text-align:center">Tasks from @isset($fromDate)  {{ $fromDate }} @else  begining @endisset
-       until @isset($toDate) {{ $toDate }} @else  now @endisset</h3>
+    <h3 style="text-align:center">Tasks</h3>
     <table>
         <thead>
             <tr>

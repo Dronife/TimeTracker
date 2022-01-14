@@ -11,7 +11,7 @@ class PdfExporter extends Exporter
         $options = new Options();
         $options->set('defaultFont', 'Arial');
         $dompdf = new Dompdf($options);
-        $htmlData = view('exportation.pdfIndex', ['tasks' => $this->tasks, 'timeSpent' => $this->totalTime]);
+        $htmlData = view('exportation.pdfIndex', ['tasks' => $this->tasks, 'totalTime' => $this->totalTime]);
         $dompdf->loadHtml($htmlData, 'UTF-8');
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();

@@ -8,7 +8,7 @@ class XlsExporter extends Exporter
     public function exportFile()
     {
 
-        // dd($this->mergeArray());
+        $filename = $this->fileName . '.xls';
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getActiveSheet()->fromArray(
             $this->mergeArray(),  
@@ -16,10 +16,11 @@ class XlsExporter extends Exporter
             'A1'                  
         );;
         $writer = new Xls($spreadsheet);
-        $writer->save('hello world.xls');
-        header('Content-type: text/csv');
-        header('Content-disposition:attachment; filename="hello world.xls"'); 
-        readfile('hello world.xls');
+        $writer->save($filename);
+        header('Content-type: text/xls');
+        header('Content-disposition:attachment; filename="'.$filename.'"'); 
+        readfile($filename);
+        unlink($filename);
     }
 
     private function mergeArray(){
