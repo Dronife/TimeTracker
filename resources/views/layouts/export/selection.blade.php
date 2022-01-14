@@ -1,5 +1,6 @@
 <div class="float-right  ">
-    <form class="" action="">
+    <form class="" method="post" action="/export">
+        @csrf
         <div class="row">
             <div class="form-inline ">
                 <label>From</label>

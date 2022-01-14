@@ -13,7 +13,7 @@ class ExportRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,8 +24,8 @@ class ExportRequest extends FormRequest
     public function rules()
     {
         return [
-            'from' => 'date|date_format:Y-m-d',
-            'to' => 'date|date_format:Y-m-d',
+            'from' => 'nullable|date|date_format:Y-m-d',
+            'to' => 'nullable|date|date_format:Y-m-d',
             'format' => 'required',
         ];
     }
