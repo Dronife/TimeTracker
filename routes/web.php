@@ -28,4 +28,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('tasks', TaskController::class);
+    Route::post('/export', 'App\Http\Controllers\ExportController@handle');
 });
