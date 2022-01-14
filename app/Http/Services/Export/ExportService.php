@@ -4,6 +4,7 @@ namespace App\Http\Services\Export;
 
 use App\Http\Factories\Export\CsvExporter;
 use App\Http\Factories\Export\PdfExporter;
+use App\Http\Factories\Export\XlsExporter;
 use App\Models\Task;
 
 class ExportService
@@ -21,7 +22,7 @@ class ExportService
         })->when($dateTo, function ($query) use ($dateTo) {
                 return $query->where('date', '<', $dateTo);
         })->select('title', 'comment', 'date', 'time_spent')->get();
-        
+
         $timeSpent = array_sum($tasks->pluck('time_spent')->toArray());
 
         return $this->ExecuteExportation($tasks, $timeSpent);
@@ -44,6 +45,9 @@ class ExportService
                 break;
             case 'csv':
                 return new CsvExporter();
+                break;
+            case 'xls':
+                return new XlsExporter();
                 break;
         }
     }
