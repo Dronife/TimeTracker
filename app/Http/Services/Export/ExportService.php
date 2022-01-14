@@ -43,6 +43,10 @@ class ExportService
             case 'xls':
                 return new XlsExporter();
                 break;
+            default:
+                return new PdfExporter();
+            break;
+
         }
     }
 
