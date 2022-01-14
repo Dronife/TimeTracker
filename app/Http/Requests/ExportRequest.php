@@ -25,8 +25,16 @@ class ExportRequest extends FormRequest
     {
         return [
             'from' => 'nullable|date|date_format:Y-m-d',
-            'to' => 'nullable|date|date_format:Y-m-d',
+            'to' => 'nullable|date|date_format:Y-m-d|after_or_equal:from',
             'format' => 'required',
         ];
     }
+
+    public function attributes()
+{
+    return [
+        'from' => "'Date from'",
+        'to' => "'Date to'",
+    ];
+}
 }
