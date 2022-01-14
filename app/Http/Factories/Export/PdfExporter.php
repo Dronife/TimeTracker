@@ -13,10 +13,11 @@ class PdfExporter extends Exporter
         $dompdf = new Dompdf($options);
         $htmlData = view('exportation.pdfIndex', ['tasks' => $this->tasks, 'totalTime' => $this->totalTime]);
         $dompdf->loadHtml($htmlData, 'UTF-8');
-        $dompdf->setPaper('A4', 'landscape');
+        // $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
-        return response()->download($dompdf->stream($this->fileName.".pdf"))->deleteFileAfterSend(true);
-        // ;
-        // $dompdf->stream($this->fileName.".pdf");
+        $output = $dompdf->output();
+        file_put_contents($this->fileName.".pdf", $output);
+        return response()->download($this->fileName.".pdf")->deleteFileAfterSend(true);
+
     }
 }

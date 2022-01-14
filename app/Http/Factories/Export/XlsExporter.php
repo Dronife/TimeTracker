@@ -17,7 +17,7 @@ class XlsExporter extends Exporter
         );;
         $writer = new Xls($spreadsheet);
         $writer->save($filename);
-        return response()->download($filename)->deleteFileAfterSend(true);
+        return response()->download($filename);
     }
 
     private function mergeArray(){

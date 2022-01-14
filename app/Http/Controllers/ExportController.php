@@ -13,6 +13,6 @@ class ExportController extends Controller
     public function handle(ExportRequest $request){
        
         $exportService = new ExportService($request->format);
-        $exportService->export($request->from, $request->to);
+        return $exportService->export($request->from, $request->to);
     }
 }

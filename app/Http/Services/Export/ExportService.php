@@ -27,7 +27,7 @@ class ExportService
         $exporter = $this->getExporter();
         $exporter->setTasks($tasks);
         $exporter->setTotalTime($timeSpent);
-        $exporter->setFileName("TrackerHistory");
+        $exporter->setFileName(config('task.export_name'));
         return $exporter->exportFile();
     }
 
