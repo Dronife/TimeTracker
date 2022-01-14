@@ -32,7 +32,16 @@
                 @endforeach
             </tbody>
         </table>
-        {{ $tasks->links() }}
+        <div class="container">
+            <div class="row px-5">
+                <div class="col-3 ml-auto border-right">
+                    {{ $tasks->links() }}
+                </div>
+                <div class="col mr-auto">
+                    @include('layouts.export.selection')
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
