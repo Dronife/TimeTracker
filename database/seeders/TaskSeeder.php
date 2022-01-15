@@ -15,14 +15,17 @@ class TaskSeeder extends Seeder
      */
     public function run()
     {
-        Task::create(
-            [
-                'title' => 'task1',
-                'comment' => 'comment',
-                'date' => Carbon::now(),
-                'time_spent' => 120,
-                'user_id' => 1,
-            ]
-        );
+        $faker = \Faker\Factory::create();
+        for($i = 0; $i < 25; $i++){
+            Task::create(
+                [
+                    'title' => $faker->words($nb = 3, $asText = true),
+                    'comment' => $faker->sentence($nbWords = 6, $variableNbWords = true),
+                    'date' => Carbon::today()->subDays(rand(0, 60)),
+                    'time_spent' => rand(5, 180),
+                    'user_id' => 1,
+                ]
+            );
+        }
     }
 }
