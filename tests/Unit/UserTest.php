@@ -5,11 +5,11 @@ namespace Tests\Unit;
 use App\Models\Task;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-
 class UserTest extends TestCase
 {
-
+    use RefreshDatabase;
     public function setUp(): void
     {
         parent::setUp();
