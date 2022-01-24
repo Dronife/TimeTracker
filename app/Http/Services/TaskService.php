@@ -2,9 +2,7 @@
 
 namespace App\Http\Services;
 
-use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class TaskService
 {
@@ -14,7 +12,6 @@ class TaskService
         try {
             Auth::user()->tasks()->create($attributes);
         } catch (\Throwable $e) {
-
             return false;
         }
         return true;
@@ -22,17 +19,9 @@ class TaskService
 
     public function destroy($id)
     {
-        $user = Auth::user();
-
         try {
-            $task = $user->tasks()->find($id);
-            if ($task->user_id != $user->id) {
-
-                return false;
-            }
-            $task->delete();
+            Auth::user()->tasks()->find($id)->delete();
         } catch (\Throwable $e) {
-
             return false;
         }
         return true;
@@ -45,19 +34,9 @@ class TaskService
 
     public function update($attributes, $id)
     {
-
-        $user = Auth::user();
-
-
         try {
-            $task = $user->tasks()->find($id);
-            if ($task->user_id != $user->id) {
-
-                return false;
-            }
-            $task->update($attributes);
+            Auth::user()->tasks()->find($id)->update($attributes);
         } catch (\Throwable $e) {
-
             return false;
         }
         return true;
