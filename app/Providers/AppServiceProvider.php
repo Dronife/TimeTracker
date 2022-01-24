@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Interfaces\Exportation\ExportInterface;
+use App\Interfaces\Exportation\SetupInterface;
 use App\Interfaces\TaskInterface;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
@@ -21,6 +22,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->bind(ExportInterface::class, function(){
             return new ExportInterface();
+        });
+        $this->app->bind(SetupInterface::class, function(){
+            return new SetupInterface();
         });
     }
 

@@ -5,8 +5,9 @@ use App\Http\Factories\Export\CsvExporter;
 use App\Http\Factories\Export\Exporter;
 use App\Http\Factories\Export\PdfExporter;
 use App\Http\Factories\Export\XlsExporter;
+use App\Interfaces\Exportation\SetupInterface;
 
-class SetupService
+class SetupService implements SetupInterface
 {
 
     public function ExecuteExportation($tasks, $timeSpent, $format) : object
