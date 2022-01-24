@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Interfaces\ExportInterface;
+use App\Interfaces\Exportation\ExportInterface;
 use App\Interfaces\TaskInterface;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Services\Export;
 
-use App\Interfaces\ExportInterface;
+use App\Interfaces\Exportation\ExportInterface;
 use App\Models\Task;
 
 class ExportService implements ExportInterface
