@@ -17,7 +17,7 @@ class ExportService
         $tasks = Task::getTasks($dateFrom, $dateTo)->get();
         $timeSpent = array_sum($tasks->pluck('time_spent')->toArray());
 
-        return (new SetupService())->ExecuteExportation($tasks, $timeSpent);
+        return (new SetupService())->ExecuteExportation($tasks, $timeSpent, $this->format);
     }
 
     public function setFormat($format) : void

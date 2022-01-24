@@ -9,18 +9,18 @@ use App\Http\Factories\Export\XlsExporter;
 class SetupService
 {
 
-    public function ExecuteExportation($tasks, $timeSpent) : object
+    public function ExecuteExportation($tasks, $timeSpent, $format) : object
     {
-        $exporter = $this->getExporter();
+        $exporter = $this->getExporter($format);
         $exporter->setTasks($tasks);
         $exporter->setTotalTime($timeSpent);
         $exporter->setFileName(config('task.export_name'));
         return $exporter->exportFile();
     }
 
-    private function getExporter() : Exporter
+    private function getExporter($format) : Exporter
     {
-        switch ($this->format) {
+        switch ($format) {
             case 'pdf':
                 return new PdfExporter();
                 break;
