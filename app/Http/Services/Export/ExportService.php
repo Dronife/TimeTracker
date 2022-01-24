@@ -2,10 +2,10 @@
 
 namespace App\Http\Services\Export;
 
-
+use App\Interfaces\ExportInterface;
 use App\Models\Task;
 
-class ExportService
+class ExportService implements ExportInterface
 {
     public function __construct($format)
     {

@@ -2,8 +2,7 @@
 
 namespace App\Providers;
 
-use App\Http\Services\Export\ExportService;
-use App\Http\Services\TaskService;
+use App\Interfaces\ExportInterface;
 use App\Interfaces\TaskInterface;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
@@ -20,7 +19,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TaskInterface::class, function(){
             return new TaskInterface();
         });
-
+        $this->app->bind(ExportInterface::class, function(){
+            return new ExportInterface();
+        });
     }
 
     /**

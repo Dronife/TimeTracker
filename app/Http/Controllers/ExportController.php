@@ -9,10 +9,15 @@ use Illuminate\Http\Request;
 class ExportController extends Controller
 {
 
+    public function __invoke(ExportService $exportService)
+    {
+        $this->$exportService = $exportService;
+    }
+
 
     public function handle(ExportRequest $request){
        
-        $exportService = new ExportService($request->format);
-        return $exportService->export($request->from, $request->to);
+        $this->$exportService->setFormat($request->format);
+        return $this->$exportService->export($request->from, $request->to);
     }
 }
