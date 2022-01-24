@@ -17,8 +17,7 @@ class TaskControllerTest extends TestCase
     {
         parent::setUp();
         $this->user = User::factory()->create();
-        $this->taskController = new TaskController();
-        
+
     }
     /**
      * A basic unit test example.
