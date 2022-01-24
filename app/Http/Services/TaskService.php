@@ -11,12 +11,10 @@ class TaskService
 
     public function store($attributes)
     {
-        DB::beginTransaction();
         try {
             Auth::user()->tasks()->create($attributes);
-            DB::commit();
-        } catch (\Throwable$e) {
-            DB::rollBack();
+        } catch (\Throwable $e) {
+
             return false;
         }
         return true;
@@ -26,44 +24,42 @@ class TaskService
     {
         $user = Auth::user();
 
-        DB::beginTransaction();
         try {
             $task = $user->tasks()->find($id);
-            if($task->user_id != $user->id){
-                DB::rollBack();
+            if ($task->user_id != $user->id) {
+
                 return false;
             }
             $task->delete();
-            DB::commit();
-        } catch (\Throwable$e) {
-            DB::rollBack();
+        } catch (\Throwable $e) {
+
             return false;
         }
         return true;
     }
 
-    public function edit($task_user_id){
+    public function edit($task_user_id)
+    {
         return $task_user_id == Auth::user()->id;
     }
 
-    public function update($attributes, $id){
+    public function update($attributes, $id)
+    {
 
         $user = Auth::user();
 
-        DB::beginTransaction();
+
         try {
             $task = $user->tasks()->find($id);
-            if($task->user_id != $user->id){
-                DB::rollBack();
+            if ($task->user_id != $user->id) {
+
                 return false;
             }
             $task->update($attributes);
-            DB::commit();
-        } catch (\Throwable$e) {
-            DB::rollBack();
+        } catch (\Throwable $e) {
+
             return false;
         }
         return true;
     }
-
 }
