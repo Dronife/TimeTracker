@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 class TaskService implements TaskInterface
 {
 
-    public function store($attributes)
+    public function store($attributes): bool
     {
         try {
             Auth::user()->tasks()->create($attributes);
@@ -18,7 +18,7 @@ class TaskService implements TaskInterface
         return true;
     }
 
-    public function destroy($id)
+    public function destroy($id) : bool
     {
         try {
             Auth::user()->tasks()->find($id)->delete();
@@ -28,12 +28,12 @@ class TaskService implements TaskInterface
         return true;
     }
 
-    public function edit($task_user_id)
+    public function edit($task_user_id) : bool
     {
         return $task_user_id == Auth::user()->id;
     }
 
-    public function update($attributes, $id)
+    public function update($attributes, $id) : bool
     {
         try {
             Auth::user()->tasks()->find($id)->update($attributes);

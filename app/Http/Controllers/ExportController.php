@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ExportController extends Controller
 {
 
-    public function __invoke(ExportService $exportService)
+    public function __construct(ExportService $exportService)
     {
         $this->$exportService = $exportService;
     }
