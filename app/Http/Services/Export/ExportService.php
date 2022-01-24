@@ -16,7 +16,7 @@ class ExportService
 
     public function export($dateFrom, $dateTo)
     {
-        $tasks = $this->getTasks($dateFrom, $dateTo);
+        $tasks = Task::getTasks($dateFrom, $dateTo)->get();
         $timeSpent = array_sum($tasks->pluck('time_spent')->toArray());
 
         return $this->ExecuteExportation($tasks, $timeSpent);
@@ -55,12 +55,6 @@ class ExportService
         $this->format = $format;
     }
 
-    private function getTasks($dateFrom, $dateTo){
-        return Task::when($dateFrom, function ($query) use ($dateFrom) {
-            return $query->where('date', '>=', $dateFrom);
-        })->when($dateTo, function ($query) use ($dateTo) {
-                return $query->where('date', '<=', $dateTo);
-        })->select('title', 'comment', 'date', 'time_spent')->get();
-    }
+  
 
 }
