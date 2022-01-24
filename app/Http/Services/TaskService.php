@@ -5,7 +5,7 @@ namespace App\Http\Services;
 use App\Interfaces\TaskInterface;
 use Illuminate\Support\Facades\Auth;
 
-class TaskService 
+class TaskService implements TaskInterface
 {
 
     public function store($attributes)

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Services\Export\ExportService;
 use App\Http\Services\TaskService;
 use App\Interfaces\TaskInterface;
 use Illuminate\Support\ServiceProvider;
@@ -16,9 +17,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(TaskService::class, function(){
-            return new TaskService();
+        $this->app->bind(TaskInterface::class, function(){
+            return new TaskInterface();
         });
+
     }
 
     /**
