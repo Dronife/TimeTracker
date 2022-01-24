@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\DB;
 class TaskController extends Controller
 {
 
-    public function __construct()
+    public function __construct(TaskService $taskService)
     {
-        $this->taskService = new TaskService();
+        $this->taskService =  $taskService;
     }
 
     /**
